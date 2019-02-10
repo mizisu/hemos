@@ -3,6 +3,12 @@
 
 SECTION .text ; text 섹션(세그먼트)을 정의
 
+; 0xB8000 video memory start
+mov ax, 0xB800 ; ax set 0xB800
+mov ds, ax ; ax copy to ds(0xB800)
+mov byte [ 0x00 ], 'M'  ; 0xB800:0x0000 set M
+mov byte [ 0x01 ], 0x4A ; 0xB800:0x0001 set 0x4A
+
 jmp $ ; 현재 위치에서 무한 루프 수행
 
 times 510 - ( $ - $$ ) db 0x00
