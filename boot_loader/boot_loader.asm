@@ -12,6 +12,20 @@ START:
 ; 0xB8000 video memory start
 mov ax, 0xB800 ; ax set 0xB800
 mov es, ax ; ax copy to es(0xB800)
+
+; screen clear
+mov si, 0 ; Initialize SI register (문자열 원본 인덱스 레지스터)
+
+.SCREENCLEARLOOP:
+    mov byte [ es: si ], 0
+    mov byte [ es: si + 1 ], 0x00
+
+    add si, 2
+
+    cmp si, 80 * 25 * 2
+
+    jl .SCREENCLEARLOOP
+
 mov byte [ es: 0x00 ], 'M'  ; 0xB800:0x0000 set M
 mov byte [ es: 0x01 ], 0x4A ; 0xB800:0x0001 set 0x4A
 
